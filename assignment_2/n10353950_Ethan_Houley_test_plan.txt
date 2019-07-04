@@ -1,0 +1,362 @@
+Test 1
+Category        : 3.1 to 3.4
+Input Sequence  : 'r'
+Expected Outcome:   The Starfighter is at minial 4 pixels high and not higher then 7 pixels in height. The Starfighter is at least 5 pixels and no more 
+                    than 15 pixels in wide. The turret is an extetion of the starfighter will look like a short straight line and is included in the 
+                    7 pixel height limit. and is centred in the middle of the bottom 8 rows
+Actual Outcome  :   The Starfighter is at least 7 pixels in height and the Starfighter is 7 pixel wide The Starfighter has a 
+turret which is included in the 7 pixel high and is placed at in the bottom 8 rows and centre in the screen.
+Status          : Passed
+
+Test 2
+Category        : 3.4
+Input Sequence  : 'r' 'p' 'r' 
+Expected Outcome: When the game resets, the Starfighter is centred on X axis in the bottom 8 rows of the screen.
+Actual Outcome  : On restart the starfighter is centred in the bottom 8 rows.
+Status          : Passed
+
+Test 3
+Category        : 3.4
+Input Sequence  : 'r' 'a' 'd' 'joystick right' 'joystick left'  
+Expected Outcome: When the game starts, the Starfighter is stationary.
+Actual Outcome  : When 'a' 'd' 'joystick right' 'joystick left' is pressed the starfighter does not move
+Status          : Passed
+
+Test 4
+Category        : 3. v
+Input Sequence  : 'r' 'p' 'r' 'a' 'd' 'joystick right' 'joystick left'  
+Expected Outcome: When the game resets, the Starfighter is stationary.
+Actual Outcome  : When the game restarts, the Starfighter is stationary until the user unpause the game.
+Status          : Passed
+
+Test 5
+Category        : 4.1
+Input Sequence  : 'r' 'p' wait to see the asteroid come on screen. After asteroid come on screen 'r' 'p'
+Expected Outcome: Asteroids fall from the top of the screen, two seconds after the game is started and pose a danger to the Starfighter. 
+                  After restart the asteroid will be in a different Location next time they fall.
+Actual Outcome  : Asteroids fall from the top of the screen, two seconds after the game is started, and after reseting the asteroid are in a different spot.
+Status          : Passed
+
+Test 6
+Category        : 4.2 and 4.5
+Input Sequence  : 'r' 'p'
+Expected Outcome: Initially, three Asteroids spawn at random horizontal positions above the top of the screen, and move smoothly into 6ew one row of
+                  pixels at a time. If a falling object touches the Deflector Shield, the object disappears and the remaining useful life of the Deflector 
+                  Shield decreases by 1.
+Actual Outcome  : Once game is unpaused three Asteroids spawn at random horizontal positions above the top of the screen, and move smoothly into 6ew one row of pixels at a time 
+                  Once a falling object touches the Deflector Shield, the object disappears and the remaining life decreases.
+Status          : Passed
+
+Test 8: Test on Assignment 2 Demo
+Category        : 4.6 
+Input Sequence  : 'r' 'j' '35' '21' 'm' '0' 'w' 'p' 
+Expected Outcome: When Asteroid is hit by a Plasma Bolt Asteroids split to form two Boulders.
+Actual Outcome  : Asteroid appears at (35, 21) ,and plasma bolt hits the asteroid which gets split into two boulders
+Status          : Passed
+
+Test 9: Test on Assignment 2 Demo
+Category        : 4.6
+Input Sequence  : 'r' 'k' '35' '21' 'm' '0' 'w' 'p'
+Expected Outcome: When hit by a Plasma Bolt Boulders split to form two Fragments.
+Actual Outcome  : Boulder appears at (35, 21) and plasma bolt hits the Boulder which gets split into two Fragments
+Status          : Passed
+
+Test 10: Test on Assignment 2 Demo
+Category        : 4. 6
+Input Sequence  : 'r' 'i' '35' '21' 'm' '0' 'w' 'p'
+Expected Outcome: When hit by a Plasma Bolt Fragments just disappear.
+Actual Outcome  : Fragment appears at (35, 21) and plasma bolt hits the Fragment which disappear.
+Status          : Passed
+
+Test 11: Test on Assignment 2 Demo
+Category        : 4.9 to 4.10
+Input Sequence  : 'r' 'j' '5' '10', 'k' '14' '10', 'i' '21' '10' 
+Expected Outcome: Asteroid is on screen at coordinates (5, 10) and is 7 by 7 pixels, shaped like diamonds.
+                  Boulder is on screen at coordinates (14, 10) and are 5 by 5 pixels, shaped like diamonds.
+                  Fragment is on screen at coordinates (21, 10) and are 3 by 3 pixels, shaped like plus symbols.
+Actual Outcome  : Asteroid, Boulder, Fragment appears on the screen at desired location, 
+                  Asteroid is shaped like a diamond is 7 by 7 pixel ,
+                  Boulder is  shaped like a diamond is 5 by 5 pixel,
+                  Fragment is shaped like a plus is 3 by 3 pixel
+Status          : Passed
+
+Test 12
+Category        : 5. i to 5. 3
+Input Sequence  : 'r', 'joystick down'
+Expected Outcome: the game status is displayed on the teensy screen in a clear and readable format and has the following; 
+                  Game time, Remaining useful life and score. 
+Actual Outcome  : the game status is displayed on the teensy screen in a clear and readable format and has the following; 
+                  Game time, Remaining useful life and score.
+Status          : Passed
+
+Test 13
+Category        : 5. 4 to 5. 12
+Input Sequence  : 'r', 's'
+Expected Outcome: the game status is displayed in putty in a clear and easy to read format and contains the following: 
+                  Game time, Remaining useful life, score, number of asteroids on the screen, number of boulders on the screen, number of fragments 
+                  on the screen, plasma bolts on screen, aim of gun and speed of game.
+Actual Outcome  : the game status is displayed in putty in a clear and easy to read format and contains the following: 
+                  Game time, Remaining useful life, score, number of asteroids on the screen, number of boulders on the screen, number of fragments 
+                  on the screen, plasma bolts on screen, aim of gun and speed of game.
+Status          : Passed
+
+Test 14
+Category        : 6.1
+Input Sequence  : 'r' 'p' 's', 'left button' 'joystick centre' 'joystick down'
+Expected Outcome: Game status information will be sent to the computer only
+Actual Outcome  : Game status is sent to the computer only.
+Status          : Passed
+
+Test 15
+Category        : 6.2
+Input Sequence  : 'r' 'p' 'p' 's'
+Expected Outcome: The 'On teensy screen' information will be displayed on the screen along with the sending the status to the computer.
+Actual Outcome  : Game information is sent to the Teensy LCD and to putty
+Status          : Passed
+
+Test 16         : Test on Assignment 2 Demo
+Category        : 8. i
+Input Sequence  : 'r' 'p'
+Expected Outcome: The Starfighter is randomly assigned a velocity, by default, that is speed 1 in either the left or right direction.
+Actual Outcome  : The starfighter moves in a random direction across the bottom 8 rows of the screen.
+Status          : Passed
+
+Test 17
+Category        : 8.2
+Input Sequence  : 'r' 'p' 'a'
+Expected Outcome:  the Starfighter's velocity to increase in the left direction
+Actual Outcome  : Starfighter moves left.
+Status          : Passed
+
+Test 18
+Category        : 8.2
+Input Sequence  : 'r' 'p' 'd'
+Expected Outcome:  the Starfighter's velocity to increase in the right direction
+Actual Outcome  : Starfighter moves right.
+Status          : Passed
+
+Test 19
+Category        : 8.8
+Input Sequence  : 'r' 'p' 'a'
+Expected Outcome: The Starfighter's velocity to change to 0 after hiting the left wall, stopping the Starfighter not allowing the starfighter off screen.
+Actual Outcome  : The Starfighter's velocity to change to 0 once the starfighter hits the left wall.
+Status          : Passed
+
+Test 20
+Category        : 8.8
+Input Sequence  : 'r' 'p' 'd' 
+Expected Outcome: The Starfighter's velocity to change to 0 after hiting the right wall, stopping the Starfighter not allowing the starfighter off screen.
+Actual Outcome  : The Starfighter's velocity to change to 0 once the starfighter hits the right wall.
+Status          : Passed
+
+Test 21
+Category        : 8.5
+Input Sequence  : 'r' 'p' 'a' 'd'
+Expected Outcome: The Starfighter's velocity to change to 0, stopping the Starfighter's movement at its current positions.
+Actual Outcome  : the starfightermoves left and then stops when told to go right stops moving
+Status          : Passed
+
+Test 22
+Category        : 8.7
+Input Sequence  : 'r' 'p' 'd' 'a'
+Expected Outcome: The Starfighter's velocity to change to 0, stopping the Starfighter's movement.
+Actual Outcome  : the starfightermoves right and then stops when told to go left stops moving
+Status          : Passed
+
+Test 23        : Test on Assignment 2 Demo
+Category        : 9.1 to 9.3
+Input Sequence  : 'r' 'left potentiometer all the way up' 's'
+Expected Outcome: In the Plasma Cannon coordinate system The Plasma Cannon is restricted to aim 60 degrees right of centre (+60) and the turret shows the aim moving
+Actual Outcome  : Display shows cannon is aimed at 60 and the turret shows the aim moves to rougly at +60 degrees
+Status          : Passed
+
+Test 24         : Test on Assignment 2 Demo
+Category        : 9. i to 9. 3
+Input Sequence  : 'r' 'left potentiometer all the way down' 's'
+Expected Outcome: In the Plasma Cannon coordinate system The Plasma Cannon is restricted 60 degrees left of centre (-60) and the turret shows the aim moving
+Actual Outcome  : Display shows cannon is aimed at 60 and the turret shows the aim moves to rougly at -60 degrees
+Status          : Passed
+
+Test 25         : Test on Assignment 2 Demo
+Category        : 9.1 to 9.3
+Input Sequence  : 'r' 'left potentiometer middle' 's'
+Expected Outcome: In the Plasma Cannon coordinate system, 0 degrees is taken to be straight up and the turret shows the aim moving
+Actual Outcome  : Displays shows cannon is aimed at 0 and the turret shows the aim straight up
+Status          : Passed
+
+Test 26         : Test on Assignment 2 Demo
+Category        : 9.4
+Input Sequence  : 'r' 'p' 'o' '25' 'o' '50' 
+Expected Outcome: the numeric value supplied overrides the potentiometer value for one second or until a new 'o' command
+is rece4ed. The state of the Plasma Cannon 6sibly reflects this
+Actual Outcome  : user is asked for input and the angle changes to the users input and then changes again to reflect the second user input command
+Status          : Passed
+
+Test 27
+Category        : 10.1 to 10.3
+Input Sequence  : 'r' 'p' 's' 'hold w down' 's'
+Expected Outcome: Plasma bolts are fired but only if at least 0.2 seconds has elapsed since the last Plasma Bolt was fired and move in a constant velocity in the direction 
+                  they were fired and disappear when they hit an object or reach the end of the screen. Once the maximum of 25 bolts have been fired and are present on the 
+                  screen nothing happens.
+Actual Outcome  : plasma bolts are fired with a 0.2 second delay and travels in a constant velocity in the direction it was fired in and disappears when they colide with an object 
+                  or the edge of the screen
+Status          : Passed
+
+Test 28         : Test on Assignment 2 Demo
+Category        : 10.6
+Input Sequence  : 'r' 'j' '36' '21' 'm' '0' 's' 'p' 'w' 's'
+Expected Outcome:  When a plasma bolt hits an Asteroid, the score increments by 1
+Actual Outcome  : When a plasma bolt hits an Asteroid, the score increments by 1
+Status          : Passed
+
+Test 29         : Test on Assignment 2 Demo
+Category        : 10.7
+Input Sequence  : 'r' 'k' '36' '21' 'm' '0' 's' 'p' 'w' 's'
+Expected Outcome:  When a plasma bolt hits a Boulder, the score increments by 2.
+Actual Outcome  : When a plasma bolt hits a Boulder, the score increments by 2.
+Status          : Passed
+
+Test 30         : Test on Assignment 2 Demo
+Category        : 10.8
+Input Sequence  : 'r'  'i' '36' '21' 'm' '0' 's' 'p' 'w' 's'
+Expected Outcome: When a plasma bolt hits a Fragment, the score increments by 4.
+Actual Outcome  : When a plasma bolt hits a Fragment, the score increments by .
+Status          : Passed
+
+Test 31
+Category        : 11.1
+Input Sequence  : 'r'
+Expected Outcome: The introduction can be exited/skipped
+Actual Outcome  : The introduction can be exited/skipped and goes to game start screen
+Status          : Passed
+
+Test 32
+Category        : 11.2 to 11.5
+Input Sequence  : N/A (enjoy the animation)
+Expected Outcome: an introductory display appears on the Teensy when the game is initially loaded. The introduction includes; Student number,  Game title,  Some kind of animation
+                  and the Use of PWM to adjust the brightness of the back-light (either on or off is up to you).
+Actual Outcome  : an introductory display appears on the Teensy when the game is initially loaded. The introduction includes; n10353950, Asteroid Apocalypse, Text flys in from 
+                  both direction and the Use of the left potentiometer to change brightness to a desired setting
+Status          : Passed
+
+Test 33
+Category        : 13.1
+Input Sequence  : 'r' 'p' 's' 's' 
+Expected Outcome: The game time is deived from one of the Teensy's on-board timers and is incremented at approximately 1 second intervals
+Actual Outcome  : Game time increments by 1 second intervals
+Status          : Passed
+
+Test 34         : Test on Assignment 2 Demo
+Category        : 13.2
+Input Sequence  : 'r' 'p'
+Expected Outcome: The game time starts when the user releases the program from pause mode. At that time, status information is sent to the computer along with a
+                  "game started" message
+Actual Outcome  : status information is sent to the computer along with a "game started" message
+Status          : Passed
+
+Test 35
+Category        : 14. i
+Input Sequence  : 'r' 'p' 'd' 'p' 'd'
+Expected Outcome: The game is paused and starfighter is unable to move after game is paused.
+Actual Outcome  : Starfighter becomes stops after game is paused.
+Status          : Passed
+
+
+Test 36
+Category        : 14. 3
+Input Sequence  : 'r' 'p' 'p' 'd' 'p'
+Expected Outcome: The game is resumed and game continues
+Actual Outcome  : Game resumes after pressing p
+Status          : Passed 
+
+Test 37         : Test on Assignment 2 Demo
+Category        : 15.1 to 15.2
+Input Sequence  : 'r' 'p'
+Expected Outcome: which ever side the majority of the asteroids appear on is the side that the LED flashes before they fall onto the screen.
+Actual Outcome  : The LED flashes on the side the majority of the asteroids appear on before they fall
+Status          : Passed
+
+Test 38
+Category        : 16.i
+Input Sequence  : 'r''l''0'
+Expected Outcome: current status is sent along with game over message
+Actual Outcome  : game over screen shows, game over message is sent, current status is sent showing life is 0
+Status          : Passed
+
+Test 39
+Category        : 16.2 to 16.4
+Input Sequence  : 'r''l''0'
+Expected Outcome: backlight fades off, game over displayed on screen, LEDs on for 2 seconds, back-light fades back on, LEDs turn off, options to quit or restart are displayed
+Actual Outcome  : backlight fades off, game over displayed on screen, LEDs on for 2 seconds, back-light fades back on, LEDs turn off, options to quit or restart are displayed
+Status          : Passed
+
+Test 40
+Category        : 17.
+Input Sequence  : 'r' 'p' 'r'
+Expected Outcome: The game returns to it's Game start state.
+Actual Outcome  : The game returns to it's Game start state.
+Status          : Passed
+
+Test 41
+Category        : 18.
+Input Sequence  : 'left button' 'right button'
+Expected Outcome: the Teensy screen goes into inverse mode and displays student number only
+Actual Outcome  : the Teensy screen goes into inverse mode and displays n10353950
+Status          : Passed
+
+Test 42
+Category        : 18.
+Input Sequence  : 'r' 'q'
+Expected Outcome: the Teensy screen goes into inverse mode and displays student number only
+Actual Outcome  : the Teensy screen goes into inverse mode and displays n10353950
+Status          : Passed
+
+Test 43
+Category        : 19.1
+Input Sequence  : 'r' 'p' 'right potentiometer turn down' 'right potentiometer turn up'
+Expected Outcome: The speed ranges from 0 (no movement) to a suitable speed that is still playable
+Actual Outcome  : The speed ranges from 0 (no movement) to a suitable speed that is still playable when the right potentiometer is turned up objects fall faster the higher the potentiometer is turned up
+Status          : Passed
+
+Test 44         : Test on Assignment 2 Demo
+Category        : 19.2
+Input Sequence  : 'r' 'p' 'm' '0' 
+Expected Outcome: A numeric value 0 will be parsed, and the value supplied overrides that of the potentiometer
+Actual Outcome  : speed gets set to 0
+Status          : Passed
+
+Test 45         : Test on Assignment 2 Demo
+Category        : 19.2
+Input Sequence  : 'r' 'p' 'm' '1023' 
+Expected Outcome: A numeric value 1023 will be parsed, and the value supplied overrides that of the potentiometer
+Actual Outcome  : speed gets set to 1023
+Status          : Passed
+
+Test 46         : Test on Assignment 2 Demo
+Category        : 21.1
+Input Sequence  : 'r' 'p' 'l' '3' 'p' 's'
+Expected Outcome:  set the remaining useful life of deflector to 3 and display in game information
+Actual Outcome  : set the life to 3 and displayed in the game information
+Status          : Passed
+
+Test 47         : Test on Assignment 2 Demo
+Category        : 21.2
+Input Sequence  : 's' 'g' '50' 's'
+Expected Outcome: set the score to 50 and displayed in the game information
+Actual Outcome  : set the score to 50 and displayed in the game information
+Status          : Passed
+
+Test 48
+Category        : 21.3
+Input Sequence  : '?'
+Expected Outcome: print controls to computer screen (Putty)
+Actual Outcome  : controls printed to computer screen (Putty)
+Status          : Passed
+
+Test 49         : Test on Assignment 2 Demo
+Category        : 21.4
+Input Sequence  : 'h' '1' '41' 
+Expected Outcome: move starfighter to coordinate within the bottom 8 rows 
+Actual Outcome  : move starfighter to coordinate
+Status          : Passed
+

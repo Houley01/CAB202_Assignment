@@ -1,0 +1,52 @@
+Battery discards at 1% per second
+Battery level get to 25% or less return to charger
+
+FILE LIST OF TYPE C:
+***** Custom Librarys *****
+* main.c 
+* screenLayout.c - Contains: Screen information and Time
+* vacuum.c - Contains: Anything to do with the vacuum cleaner
+* tash.c  - Contains: Anything to do with the trash
+* collision.c - Contains: Functions that check if the vacuum cleaner has hit rubish.
+* 
+
+***** Universty Librarys *****
+* cab202_graphics.c
+* cab202_timers.c
+*
+
+***** Universty Librarys Edited *****
+* helpers.c
+
+*************************************
+OTHER FILE
+* makefile
+* bash Script
+* bash Script Test.sh
+
+
+
+***************
+files to redo
+trash 
+vacuum
+
+
+else if (ch == 'c') {
+    test();
+}
+// remove this
+void test() {
+    draw_formatted(50, 50, "item 0, x axie: %i, y axie %i", trashPlacementX[0], trashPlacementY[0]);
+    draw_formatted(50, 51, "item 1, x axie: %i, y axie %i", trashPlacementX[1], trashPlacementY[1]);
+    draw_formatted(50, 52, "item 2, x axie: %i, y axie %i", trashPlacementX[2], trashPlacementY[2]);
+    draw_formatted(50, 53, "item 3, x axie: %i, y axie %i", trashPlacementX[3], trashPlacementY[3]);
+    draw_formatted(50, 54, "item 4, x axie: %i, y axie %i", trashPlacementX[4], trashPlacementY[4]);
+    show_screen();
+    while (1)
+    {
+        if(get_char() =='G') {
+            break;
+        }
+    }
+}

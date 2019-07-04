@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CAB202 Assignment 1</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <!-- <script src="bootstrap.min.js"></script> -->
+
+</head>
+
+<body style="background: black; color: white;">
+    <div class="container">
+        <div class="exerciseBox">
+            <h1 style="text-align: center">CAB202 Assignment 2</h1>
+            <table cellpadding="3" cellspacing="0" border="1" style="margin-right: auto; margin-left: auto">
+                <tbody>
+                    <tr>
+                        <td>
+                            <strong>Due Date</strong>:
+                        </td>
+                        <td>29 April 2019 23:59:59
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Submission</strong>:
+                        </td>
+                        <td>Attach your solution using the file attachment controls provided below.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Assessment Weight</strong>:
+                        </td>
+                        <td>30%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <strong>Change Log</strong>:
+                        </td>
+                        <td>The following changes have been made since the initial release of the assignment.
+                            <ul>
+                                <li>28 Mar 2019 – <a href="#trash_shape">Adjusted shape and dimensions of trash.</a>
+                                </li>
+                                <li>28 Mar 2019 – <a href="#dropping_rubbish">Modified rule for dropping garbage.</a>
+                                </li>
+                                <li>28 Mar 2019 – <a href="#battery">Clarification of battery definition.</a></li>
+                                <li>28 Mar 2019 – <a href="#add_battery_override">Added command to override battery
+                                        level.</a>
+                                </li>
+                                <li>28 Mar 2019 – <a href="#load_display">Modified load display criterion.</a></li>
+                                <li>28 Mar 2019 – <a href="#dust">Allow up to 1000 pieces of dust.</a></li>
+                                <li>28 Mar 2019 – Removed Room 2 and Room 3. There is only one room in this simulation.
+                                </li>
+                                <li>28 Mar 2019 – <a href="#kick">Add controls to push the device one unit north, south,
+                                        east,
+                                        or west.</a></li>
+                                <li>29 Mar 2019 – <a href="#help">Add help screen.</a></li>
+                                <li>04 Apr 2019 – Eliminated all references to furniture. Furniture was in Room 3. Room
+                                    3 no
+                                    longer exists. Therefore furniture no longer exists.</li>
+                                <li>04 Apr 2019 – Tweak wording of charging station location.</li>
+                                <li>05 Apr 2019 – <a href="#rubbish">Place rubbish at newly generated random locations
+                                        on reset
+                                        or start.</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;"><strong>Determinations:</strong></td>
+                        <td>The following interpretations are implied by the specification in conjunction with common
+                            sense
+                            based on everyday experience, but stated here explicitly to erase possible misconceptions:
+                            <ol>
+                                <li><strong>Q:</strong> Is it OK if you can see rubbish as the device passes over it?
+                                    <br>
+                                    <strong>A:</strong> No. It should not be possible to see rubbish through points
+                                    interior to
+                                    the outline of the device. On the other hand, rubbish that intersects the corners of
+                                    the
+                                    bounding box outside the outline of the device should still be visible. 06 Apr 2019.
+
+                                </li>
+                            </ol>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2 style="text-align: left">Introduction</h2>
+            <p style="text-align: left">
+                In this assignment you will design, implement, and test, a simulated
+                Robotic Vacuum Cleaner, hereafter referred to as <em>the device</em>. The simulation consists of a
+                simple
+                virtual environment within which the device moves under a rudimentary autonomous control algorithm,
+                collecting
+                particulate matter (also called <em>rubbish</em>) from the floor as it passes. Rubbish comes in three
+                varieties:
+                <em>dust</em> is made up of small particles; <em>slime</em> is made up of medium sized particles;
+                <em>trash</em>
+                is composed of large particles. When the device reaches its maximum load-carrying capacity, it travels
+                to a
+                charging station where it unloads all accumulated waste matter, and tops up its battery. Having done so,
+                the
+                device resumes its patrol, continuing until either the simulation is terminated via a command from the
+                user, or
+                the simulation exceeds a designated maximum time limit.
+            </p>
+            <h2>Listen Up!</h2>
+            <div>
+                <ol>
+                    <li>The assignment will be graded by strict reference to the criteria listed below.</li>
+                    <li>
+                        <strong>This is not a group assignment.</strong> While we encourage you to discuss the
+                        assignment and
+                        brain-storm with your associates, you must ensure that your submission is your own individual
+                        work.
+                        <p style="text-align: center">
+                            <em>Share ideas, not code! </em>
+                        </p>
+                    </li>
+                    <li>A high standard of academic integrity is required. Breaches of academic integrity, including
+                        plagiarism
+                        or any other action taken to subvert, circumvent, or distort the assessment process, will not be
+                        tolerated. QUT policy regarding academic conduct is available in the <a
+                            href="http://www.mopp.qut.edu.au/C/C_05_03.jsp">QUT MOPP Section C/5.3 Academic
+                            Integrity</a>. In
+                        particular, under the provisions of <a
+                            href="http://www.mopp.qut.edu.au/C/C_05_03.jsp#C_05_03.07.mdoc">MOPP statement C/5.3.7</a>,
+                        Part
+                        (e), we reserve the right to require you to authenticate your learning. You may be required to
+                        show
+                        evidence of materials used in the production of the assignment such as notes, drafts, sketches
+                        or
+                        historical backups. You may also be required to undertake a viva or complete a supervised
+                        practical
+                        exercise. </li>
+                    <li>Use of any third-party code library (other than the standard libraries supplied with GCC,
+                        ncurses, and
+                        the list of items labelled as Exceptions in the following paragraph) is strictly prohibited. Use
+                        of code
+                        downloaded from the internet, with or without correct attribution to the original author(s), is
+                        strictly
+                        prohibited. Submission of source code created by teaching staff of this unit <span
+                            class="auto-style1">in any previous semester</span> is strictly prohibited. Subcontracting,
+                        outsourcing, off-shoring, purchasing, borrowing, stealing, copying, or obtaining source code by
+                        any
+                        means other than through an act of original creation by yourself, is strictly prohibited.
+                        <p><strong>Exceptions:</strong> you <span>are</span> strongly encouraged to <span>call functions
+                                defined
+                                in the <strong>current version</strong> of the ZDK</span>, as downloaded from CAB202
+                            2019
+                            Semester 1 Blackboard Learning Resources on or after 25 February 2019. You are strongly
+                            encouraged
+                            to <span>download and submit copies – modified as appropriate – of the files
+                                <code>helpers.c</code>,
+                                <code>helpers.h</code>, and <code>zdj2.c</code>,</span> from CAB202 2019 Semester 1
+                            Blackboard
+                            Learning Resources Topic 4.</p>
+                    </li>
+                    <li>Do not post your solution in any form of online repository or file sharing service, or allow
+                        anybody
+                        else to obtain access to your solution in any way. Doing so will be classified as academic
+                        misconduct
+                        under the clauses pertaining to collusion, especially in the event that a copy of your source
+                        code
+                        obtained from such a service is submitted by another student, regardless of whether this has
+                        occurred
+                        without your knowledge and permission.</li>
+                    <li>Abundant code samples, demonstrations, and exercises have been made available to support your
+                        effort
+                        toward this programming task. Written permission must be obtained from the Unit Coordinator if
+                        you want
+                        to use technology other than the ZDK to implement your game. Permission will only be granted if
+                        there
+                        are compelling special circumstances that make it impossible for you to use the ZDK. Without
+                        this
+                        permission, a game implemented with some other graphical framework will receive a score of 0.
+                        Direct use
+                        of the <code>ncurses</code> library to render graphics or text is expressly prohibited.</li>
+                </ol>
+                <p style="text-align: left">
+                    Breaching any of the foregoing conditions will result in an immediate and final score of 0 for the
+                    Assignment.
+                </p>
+            </div>
+            <h2>Deliverables</h2>
+            <div>
+                <p>
+                    Submit the following items:
+                </p>
+                <ul>
+                    <li>Implementation:<ul>
+                            <li>Submit all source files (<code>.c</code>) and header files (<code>.h</code>) required to
+                                compile
+                                and run your program.</li>
+                            <li>In addition to source and header files, you are required to submit<ul>
+                                    <li>A <code>bash</code> script or makefile which can be used to build your program
+                                        in a
+                                        typical CAB202 programming environment.</li>
+                                    <li>A <code>bash</code> script which embodies and automatically executes your test
+                                        suite.
+                                        The details of the contents of this script are set out under the heading Test
+                                        Requirements, below.</li>
+                                </ul>
+                            </li>
+                            <li>Use the controls at the bottom of this page to attach source files, header files, and
+                                your bash
+                                test script.</li>
+                        </ul>
+                    </li>
+                    <li>Architectural requirements:
+                        <ul>
+                            <li>Your program must implement the core high level architecture demonstrated in lectures.
+                                You are
+                                encouraged to use the implementation of the Zombie Dash Junior case study from Topic 4
+                                as a
+                                launching point. A minimal skeleton for the program follows:
+                                <div>
+                                    <textarea style="max-width: 100%; width: 100%; font-family: monospace;" name="S1"
+                                        rows="28" readonly="readonly">#include &lt;math.h&gt;
+        #include &lt;stdlib.h&gt;
+        #include &lt;string.h&gt;
+        #include &lt;limits.h&gt;
+        #include &lt;cab202_graphics.h&gt;
+        #include &lt;cab202_timers.h&gt;
+        // Insert other functions here, or include header files
+        void setup () {
+            // Insert setup logic here 
+        }
+        void loop() {
+            // Insert loop logic here.
+        }
+        int main() {
+            setup_screen();
+            setup();
+            while ( /* Insert termination conditions here */ ) {
+                loop();
+                timer_pause( /* Insert delay expression here. */ );
+            }
+            return 0;
+        }</textarea>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <p style="text-align: left">
+                    &nbsp;
+                </p>
+            </div>
+            <h2>Functional Specification Overview</h2>
+            <div>
+                <p style="text-align: left">
+                    The simulated machine will exhibit the following general capabilities:
+                </p>
+                <ul>
+                    <li>
+                        <p style="text-align: left">
+                            It will detect collision between itself and other fixed objects such as walls and charging
+                            station,
+                            and respond appropriately.
+                        </p>
+                    </li>
+                    <li>
+                        <p style="text-align: left">
+                            It will have a direction sensor which it will use to navigate, by turning relative to its
+                            current
+                            direction, or by travelling towards a charging station.
+                        </p>
+                    </li>
+                    <li>
+                        <p style="text-align: left">
+                            An in-built scale will enable the device to measure the weight of its current payload, and
+                            adjust
+                            its behaviour accordingly.
+                        </p>
+                    </li>
+                    <li>
+                        <p style="text-align: left">
+                            A battery level sensor will enable the machine to monitor its current power status, to
+                            ensure that
+                            it returns to its charging station when power runs low.
+                        </p>
+                    </li>
+                </ul>
+                <p style="text-align: left">
+                    A basic graphical interface, rendered using the CAB202 ZDK graphics library, will show the progress
+                    of the
+                    robot vacuum cleaner as it navigates the virtual environment. The operator of the simulation will
+                    use the
+                    user interface to monitor the state of the device via a status panel, observe the effectiveness with
+                    which
+                    the machine cleans the floor, and verify that the machine generally conforms to specification as set
+                    out in
+                    detail in the remainder of this document.
+                </p>
+                <p style="text-align: left">
+                    The simulation
+                    will execute in two modes. When running in <em>interactive mode</em>, a human observer (e.g. your
+                    tutor)
+                    will control the simulation using instructions listed below. When running in <em>batch mode</em>,
+                    the
+                    simulation will be executed with a list of instructions provided via redirected standard input,
+                    using the
+                    same instruction set as those used by the human observer.
+                </p>
+                <p>
+                    The instructions recognised by the simulator are listed below. Some of these instructions
+                    are atomic, but several require the input of one, two, or three numeric parameters, as elaborated in
+                    greater
+                    detail in the following sections. The Robot Vacuum Cleaner instruction set is listed below:
+                </p>
+                <ul>
+                    <li><code>'b'</code> – tell the device to stop cleaning and return to base i.e. step repeatedly
+                        towards the
+                        charging dock.</li>
+                    <li><code>'d'</code> – drop a piece of <em>dust</em> (small rubbish) on the floor.</li>
+                    <li><code>'i'</code> – push the device one unit north (up on the terminal).</li>
+                    <li><code>'j'</code> – push the device one unit west (left on the terminal).</li>
+                    <li><code>'k'</code> – push the device one unit south (down on the terminal).</li>
+                    <li><code>'l'</code> – push the device one unit east (right on the terminal).</li>
+                    <li><code>'m'</code> – set the millisecond delay between successive invocations of the
+                        <code>loop</code>
+                        function.</li>
+                    <li><code>'o'</code> – set the time-out period, that is, the total permitted run time, measured in
+                        seconds.
+                    </li>
+                    <li><code>'p'</code> – cause the device to start moving (if it is stationary) or stop moving (if it
+                        is
+                        mobile).</li>
+                    <li><code>'q'</code> – quit simulation.</li>
+                    <li><code>'r'</code> – reset simulation.</li>
+                    <li><code>'s'</code> – drop a piece of <em>slime</em> (medium rubbish) on the floor.</li>
+                    <li><code>'t'</code> – drop a piece of <em>trash</em> (large rubbish) on the floor.</li>
+                    <li><code>'v'</code> – move the device to a new location and specify a new direction.</li>
+                    <li><code>'w'</code> – change the amount (weight) of the rubbish currently on board the device.</li>
+                    <li><code>'y'</code> – change the battery level of the device.</li>
+                    <li><code>'?'</code> – display help screen.</li>
+                </ul>
+                <p>A video which demonstrates a near-complete version of the assignment is available for viewing in the
+                    Echo360
+                    panel within Blackboard. The only functionality absent is pixel-level collision detection.</p>
+            </div>
+            <h2>Functional Specification</h2>
+            <div>
+                <ol type="1">
+                    <li><strong>Terminal Set-up:</strong> you may assume that the terminal will be quite large, for
+                        example, on
+                        the order of 150×50, or more. Tutors will not run the simulation in a tiny display.</li>
+                    <li>
+                        <strong>Status Display:</strong> The status display is 5 characters high, located at the top of
+                        the
+                        terminal window, is entirely visible at all times (i.e. never occluded in any way) and displays
+                        the
+                        following information in a tabular format, laid out as two rows, each having three columns.
+                        <ol type="i">
+                            <li>Row 1, column 1: Student number, in the form <code>n10353950</code>.</li>
+                            <li>Row 1, column 2: Robot direction, measured in degrees and expressed as a whole number
+                                between 0
+                                and 359 inclusive.</li>
+                            <li>Row 1, column 3: Remaining battery life, expressed as a percentage, using whole numbers.
+                            </li>
+                            <li>Row 2, column 1: Elapsed time since last reset, measured as whole number minutes and
+                                seconds in
+                                the form <code>mm:ss</code>.
+                                <ul>
+                                    <li>Use <code>get_current_time</code> to measure elapsed time since last reset,
+                                        rather than
+                                        attempting calculations based on the loop delay.</li>
+                                    <li>This must update in real time.</li>
+                                </ul>
+                            </li>
+                            <li><a name="load_display"></a>Row 2, column 2: <span
+                                    style="text-decoration: line-through;">Weight,
+                                    expressed as a percentage of the nominal load-carrying capacity of the device, using
+                                    whole
+                                    numbers.</span>Load weight, measured in grams.</li>
+                            <li>Row 2, column 3: Rubbish available: three integers, separated by commas, showing the
+                                current
+                                amount of dust, slime, and trash, respectively, waiting to be collected from the floor.
+                            </li>
+                        </ol>
+                    </li>
+                    <li>A <b>command input area</b> occupies the bottom two rows the terminal window, remaining visible
+                        at all
+                        times (i.e. never occluded in any way by vacuum cleaners or rubbish).
+                        <ol type="i">
+                            <li>When not in use, this region will be empty.</li>
+                            <li>During interactive command entry, the region is used to prompt for and echo character
+                                data
+                                obtained from standard input.</li>
+                        </ol>
+                    </li>
+                    <li>
+                        <strong>Border lines:</strong> The terminal window as a whole is outlined by a border, and the
+                        various
+                        parts of the display within are separated visually by horizontal and vertical lines.
+                        <ol type="i">
+                            <li>Vertical line segments, including the left and right edges of the room and the status
+                                display,
+                                are rendered using lines made of <code>'|'</code> (pipe) symbols.</li>
+                            <li>Horizontal line segments, including the upper and lower boundaries of the, and
+                                horizontal rules
+                                in the status area, are rendered using lines made of <code>'-'</code> (minus) symbols.
+                            </li>
+                            <li>Intersections between horizontal and vertical border lines should be marked by
+                                <code>'+'</code>
+                                (plus) symbols.</li>
+                            <li>Border lines are visible at all times and never occluded by any object.</li>
+                        </ol>
+                    </li>
+                    <li>
+                        <strong>Robotic Vacuum:</strong> There is a Robotic Vacuum device.
+                        <ol type="i">
+                            <li>The device is represented by a distinctive icon which must be at least 9×9 characters in
+                                size.
+                            </li>
+                            <li>The icon is approximately circular in shape.
+                                <ul>
+                                    <li>Due to the highly pixellated display, a smooth circle is impossible.</li>
+                                    <li>Any reasonably smooth regular polygon with 8 or more sides will be satisfactory.
+                                    </li>
+                                    <li>As the “pixels” are unlikely to be square, the aspect ratio will be distorted,
+                                        so that
+                                        circles will look more like ellipses. This is expected, and acceptable.</li>
+                                </ul>
+                            </li>
+                            <li>The outline of the icon is rendered with <code>'@'</code> (at) symbols.<ul>
+                                    <li>You may use any pattern to fill the interior of the icon, however if space
+                                        characters
+                                        are used they must be opaque, so that objects pass out of view when the device
+                                        moves
+                                        over them.</li>
+                                </ul>
+                            </li>
+                            <li>Whenever the simulation is reset, including when it first starts, the icon is placed in
+                                the
+                                middle of the room.
+                                <ul>
+                                    <li>This is a rigorous requirement. To be precise, the device is in the middle of
+                                        the room
+                                        if and only if the centre of the smallest possible axis parallel rectangle which
+                                        encompasses all characters of the rendered image of the device (with visible
+                                        pixels
+                                        falling on or within its perimeter) falls within one screen unit (horizontally
+                                        and
+                                        vertically) of the centre of the room.</li>
+                                </ul>
+                            </li>
+                            <li>Whenever the simulation is reset, including when it first starts, the device is
+                                stationary. It
+                                does not move until an explicit instruction is received to make it commence moving.</li>
+                        </ol>
+                    </li>
+                    <li>
+                        <strong>Default Device Behaviour:</strong> The default behaviour of the Robot Vacuum device is
+                        as
+                        follows:
+                        <ol type="i">
+                            <li>When initially set in motion by pressing a <code>'p'</code> command, it moves directly
+                                downwards
+                                to the bottom border, at a speed of 0.2 screen units per time slice. This direction may
+                                be
+                                displayed as 0 degrees, or it may be displayed as 90 degrees, depending on the
+                                coordinate system
+                                you have chosen to use.</li>
+                            <li>Whenever the device hits a wall or other obstacle such as the charging station, it will
+                                pause
+                                for one time slice, and in that time it will change direction by swivelling either left
+                                or right
+                                by a random angle between 30 and 60 degrees.
+                                <ul>
+                                    <li>Depending on the angles involved, this may mean that the device pauses for
+                                        several time
+                                        slices. However, it will (with very high probability) eventually move away from
+                                        the
+                                        wall.</li>
+                                </ul>
+                            </li>
+                            <li>The device must never be seen to cross over or intersect the wall in any way. Nor may
+                                it: leave
+                                the terminal window in the normal course of running the simulation; invade the status
+                                area; or
+                                traverse into the area set aside for input.</li>
+                            <li>If the device is moving and a <code>'p'</code> command is encountered, it stops moving.
+                                If it is
+                                not moving and a <code>'p'</code> command is encountered, it starts moving. Apart from
+                                stopping
+                                and starting, there should be no other side effects: all other aspects of the state of
+                                the
+                                simulation must remain unchanged.</li>
+                            <li>The device must never move more than 1 character distance in any direction in a single
+                                step,
+                                unless repositioned via the <code>'v'</code> instruction.</li>
+                        </ol>
+                    </li>
+                    <li>
+                        <a name="battery"></a><strong>Battery Life:</strong> The device has an initial battery life of
+                        100%
+                        which decreases by 1% per second.<ol type="i">
+                            <li>Use <code>get_current_time</code> to measure passing time as the battery discharges,
+                                rather than
+                                attempting calculations based on the loop delay.</li>
+                            <li>If the battery life reaches zero, the device becomes immobile as it has no power
+                                reserve. See
+                                further notes below.</li>
+                            <li>The battery life must never be observed to have a value less than zero, or greater than
+                                100%.
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        <strong>Charging station:</strong> The device docks with a charging station to recharge its
+                        battery and
+                        unload any rubbish it has collected since the last visit.&nbsp;
+                        <ol type="i">
+                            <li>The charging station is represented by a distinctive image at least 9 characters wide
+                                and 3
+                                characters high.</li>
+                            <li>The outline of the charging station must be rendered with <code>'#'</code> (hash)
+                                symbols.</li>
+                            <li>The charging station must be positioned in the middle of the northern edge of the room,
+                                immediately below the top border.</li>
+                            <li>If the device is not in <em>Return to Base</em> mode, then the charging station should
+                                be
+                                treated as a wall.</li>
+                            <li>The Robot Vacuum must never be seen to visibly overlap the charging station.</li>
+                        </ol>
+                    </li>
+                    <li>
+                        <strong>Return To Base:</strong> This mode is activated via the <code>'b'</code> command, when
+                        the
+                        battery level drops below 25%, or when the total current weight of on-board rubbish exceeds
+                        45g.&nbsp;
+                        <ol type="i">
+                            <li>In <em>Return to Base</em> mode, the device constantly monitors its location relative to
+                                a
+                                charging station, and changes direction to ensure that each move will take it toward the
+                                charging station by the most direct route possible.</li>
+                            <li>While returning to base, the device passes over the top of rubbish without collecting
+                                anything,
+                                even if it has capacity to collect more rubbish.</li>
+                            <li>If the device collides with the charging station while in <em>Return to Base</em> mode,
+                                then it
+                                should dock by stopping adjacent to the station.</li>
+                            <li>While the device is docked:
+                                <ul>
+                                    <li>The word “Docked” must be displayed in the command input area.</li>
+                                    <li>The Battery Life indicator should show that the devices is recharging.</li>
+                                    <li>Charge should accumulate at a rate equivalent to a full charge (100%) in 3
+                                        seconds.</li>
+                                    <li>Use <code>get_current_time</code> to measure passing time during recharge,
+                                        rather than
+                                        attempting calculations based on the loop delay.</li>
+                                    <li>Once docked, the device remains docked until it is fully charged.</li>
+                                    <li>When the Robot Vacuum is fully charged it should leave the dock by reverting to
+                                        its
+                                        default movement regime. This should allow it to make its way away from the
+                                        charging
+                                        station as a result of default collision processing.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        <strong>Battery Fully Discharged:</strong> If the Robot Vacuum's charge reaches 0% it should
+                        stop moving
+                        and a Simulation Over message should be displayed.
+                        <ol type="i">
+                            <li>The message should be displayed in the middle of the room, in the centre of a clear
+                                rectangle
+                                which permits it to be easily seen and deciphered.</li>
+                            <li>Leave existing images in the room, apart from those covered by the clear rectangle.</li>
+                            <li>The message should give the user the option of pressing 'q' to quit the simulation
+                                gracefully.
+                            </li>
+                            <li>The message should give the user the option of pressing 'r' to reset the simulation to
+                                its
+                                initial state.</li>
+                            <li>Pending reset, the status indicators should remain visible, frozen in their state at the
+                                time
+                                the charge hit 0%.</li>
+                        </ol>
+                    </li>
+                    <li>
+                        <strong>Load Carrying Capacity:</strong> The device is capable of carrying rubbish with a total
+                        mass of
+                        65g.&nbsp;
+                        <ol type="i">
+                            <li>The current load of the Robotic Vacuum is reassigned to 0 when the simulation is reset
+                                (including when it first starts).</li>
+                            <li>To ensure that the load never exceeds this figure, the device is programmed to turn off
+                                its
+                                vacuum pump as soon as the total current load exceeds 45g, and transition to
+                                <strong>Return to
+                                    Base</strong> mode.</li>
+                            <li>As long as the current total load is equal to or less than 45g, the device will continue
+                                to
+                                collect rubbish.</li>
+                        </ol>
+                    </li>
+                    <li>
+                        <a name="rubbish"></a><strong>Rubbish:</strong> the simulation allows a number of items of
+                        rubbish to be
+                        distributed onto the floor. As noted elsewhere, there are three categories of rubbish:
+                        <em>dust</em>,
+                        which is small; <em>slime</em>, which is medium in size; and <em>trash</em>, which is large.
+                        <ol type="i">
+                            <li>There are three categories of rubbish:
+                                <ul type="a">
+                                    <li><a name="dust"></a><strong>Dust:</strong> has a mass of 1g, and at any given
+                                        time there
+                                        may be up to <span style="text-decoration: line-through">20</span> 1000 pieces
+                                        of dust
+                                        on the floor. Dust is represented by an image consisting of a <code>'.'</code>
+                                        (point or
+                                        full stop) symbol.</li>
+                                    <li><strong>Slime:</strong> has a mass of 5g, and at any given time there may be up
+                                        to 10
+                                        patches of slime on the floor. Slime is represented by an approximately
+                                        elliptical 5×5
+                                        image consisting of <code>'~'</code> (tilde) symbols.</li>
+                                    <li><strong>Trash:</strong> has a mass of 20g, and at any given time there may be up
+                                        to 5
+                                        piles of trash on the floor. <a name="trash_shape"></a><span
+                                            style="text-decoration: line-through">Trash is represented by an
+                                            approximately
+                                            equilateral triangle, with sides 7 units long, </span>Trash is represented
+                                        by an
+                                        isosceles triangle with base at least 11 units long, and height at least 6
+                                        units, made
+                                        of <code>'&amp;'</code> (ampersand) symbols.</li>
+                                </ul>
+                            </li>
+                            <li>When the simulation is reset (or when the simulation starts for the first time), the
+                                system
+                                should use the command input area to obtain the number of pieces of dust, slime, and
+                                trash to
+                                spread on the floor, up to and including the limits listed above.</li>
+                            <li>Rubbish should spawn at newly generated random locations on game start and on reset.
+                            </li>
+                            <li>Rubbish should not spawn on (or under, or overlapping) the Robotic Vacuum, overlapping
+                                with any
+                                other item of rubbish, overlapping the charging station, or overlapping with the
+                                outlines of the
+                                room.</li>
+                            <li>At all times, the current number of dust, slime, and trash, waiting of the floor to be
+                                cleaned
+                                up is displayed in the status area.</li>
+                        </ol>
+                    </li>
+                    <li>
+                        <strong>Rubbish Collection:</strong> Rubbish is collected by the device when it is not in
+                        <strong>Return
+                            to Base</strong> mode, and the icon of the Vacuum collides with the icon of the rubbish.
+                        <ol type="i">
+                            <li>The rubbish should disappear from the floor immediately. This is a very strong vacuum
+                                cleaner.
+                            </li>
+                            <li>The weight of the device should be updated in the status display immediately to reflect
+                                the
+                                added payload.</li>
+                            <li>The available rubbish indicator should update immediately, to reflect the removal of the
+                                rubbish.</li>
+                        </ol>
+                    </li>
+                    <li>
+                        <strong>Collision Detection:</strong> Two levels of attainment are possible:
+                        <ol type="i">
+                            <li>Bounding box collision detection will allow credit for most of the functionality to be
+                                obtained.
+                            </li>
+                            <li>Pixel level collision detection will yield a higher score, as it will enable more
+                                accurate
+                                collision between the device and other objects such as rubbish or the charging station.
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        <strong>Other simulation controls:</strong> In addition to those already covered, the simulation
+                        should
+                        respond to the following commands.
+                        <ol type="i">
+                            <li>
+                                <code>'d', 's', 't'</code> – use the input command region to read an (x,y) coordinate
+                                pair, and
+                                move a piece of rubbish of the appropriate type into that location.
+                                <ul>
+                                    <li><a name="dropping_rubbish"></a><span style="text-decoration: line-through;">The
+                                            rubbish
+                                            moved must already be on the floor waiting for collection.</span></li>
+                                    <li><span style="text-decoration: line-through;">If there is no rubbish waiting for
+                                            collection of the specified type, then the simulator should ignore the
+                                            command.</span></li>
+                                    <li>This operation drops a new piece of rubbish on the floor.</li>
+                                    <li>If the maximum number of permitted items of the selected type are already
+                                        present, then
+                                        the simulator should ignore the command.</li>
+                                </ul>
+                            </li>
+                            <li><a name="kick"></a><code>'i', 'j', 'k', 'l'</code> – push the device one unit towards
+                                the north
+                                (up), west (left), south (down), east (right), respectively. All other constraints must
+                                continue
+                                to be satisfied. If the device is engaged in normal movement and it is pushed, then it
+                                should
+                                continue its previous movement after being pushed. If the device is returning to base
+                                when it is
+                                pushed, it should re-orient and continue to return to base after being pushed.</li>
+                            <li><code>'m'</code> – Ask the user for a new delay period for use in the main event loop.
+                                Refer to
+                                Topic 4 lecture notes.</li>
+                            <li><code>'o'</code> – set the time-out period, that is, the total permitted run time,
+                                measured in
+                                seconds. Refer to Topic 4 lecture notes.</li>
+                            <li><code>'q'</code> – Display a farewell message, wait for user input, then exit the
+                                simulation
+                            </li>
+                            <li><code>'r'</code> – Reset simulation. The Robot Vacuum, rubbish, and status display are
+                                all
+                                restored to their initial state as described above.</li>
+                            <li><code>'v'</code> – Ask the user to supply new x, y, and angle settings for the device.
+                                Assign
+                                these values into the state of the object, and resume. If the devices is operating in
+                                <em>Return
+                                    to Base</em> mode at the time it is moved, then it must automatically realign on a
+                                charging
+                                station and resume its journey back from the new location.</li>
+                            <li>
+                                <code>'w'</code> – Ask the user to enter a new, positive value for the weight. The
+                                current
+                                payload weight is updated to the new value. This allows the behaviour of the device to
+                                be
+                                efficiently tested under a range of conditions (empty, full, in between) to verify that
+                                all
+                                trigger criteria are detected properly.
+                            </li>
+                            <li>
+                                <a name="add_battery_override"></a><code>'y'</code> – Ask the user to enter a new
+                                battery level,
+                                between 0 and 100 inclusive. The battery level of the device is updated to the new
+                                value. This
+                                allows the behaviour of the device to be efficiently tested under a range of conditions
+                                (low
+                                charge, full charge, and near the cut-off for <em>Return to Base</em> behaviour) to
+                                verify that
+                                all trigger criteria are detected properly.
+                            </li>
+                            <li>
+                                <a name="help"></a><code>'?'</code> – Suspend all operations in the simulation and
+                                display a
+                                simple help screen which lists all available commands with a brief synopsis. The screen
+                                should
+                                prompt the user to press a key to resume, then wait until the user presses a key, or
+                                until the
+                                execution time-out limit is reached. When the help screen closes, the simulation should
+                                appear
+                                exactly as it was, apart from the elapsed time indicator, which should include the time
+                                spent
+                                viewing the help screen.
+                            </li>
+                        </ol>
+                    </li>
+                </ol>
+            </div>
+            <h2>Program structure, implementation quality</h2>
+            <p>The program must be implemented with a view to ease of comprehension and maintainability. To this end:
+            </p>
+            <ol>
+                <li>The program should be subdivided into loosely coupled functions. Wherever possible and practical,
+                    data is
+                    transferred between functions via parameters and return values rather than shared global variables.
+                </li>
+                <li>No function may contain more than 25 executable C language instructions. Note that comma separated
+                    expressions with side effects will be classified as executable instructions.</li>
+                <li>No function may be substantially identical to any other function.</li>
+                <li>All functions have carefully and meaningfully narrated documentation comments.</li>
+                <li>All source code must be formatted in a professional manner, making sensible use of meaningful
+                    identifiers,
+                    and adhering to a consistent coding standard of your choice.</li>
+                <li>Groups of related functions should be sectioned out into separate modules. Use of global variables
+                    is
+                    restricted to the compilation unit within which it is declared.</li>
+                <li>Template shell scripts and makefiles will be provided as tutorial resources during Week 5.</li>
+                <li>Evidence of correct use of language support for modularity must be provided via the shell script or
+                    makefile
+                    which you submit with your implementation. the existence of multiple source files by itself is not
+                    sufficient to obtain full marks under this criterion.</li>
+            </ol>
+            <h2>Test Requirements</h2>
+            <p>The program must be rigorously and methodically tested, using an automated test suite which you will
+                implement
+                using a shell script.</p>
+            <ul>
+                <li>The script should be able to run without problem in a standard Linux or Cygwin terminal, such as
+                    MinTTY
+                    using the bash command interpreter.</li>
+                <li>Each test must be documented in the shell script, using in-line comments to address:<ul>
+                        <li>What item of functionality (from the numbered list above) the test exercises.</li>
+                        <li>What the expected outcome from running the test should be.</li>
+                        <li>What the behaviour observed in your program is.</li>
+                        <li>An executable command which includes the explicit input sequence required to run the test,
+                            and which
+                            executes the test automatically when the shell script runs.</li>
+                    </ul>
+                </li>
+                <li>Template shell scripts for this purpose will be provided as tutorial resources during Week 6.</li>
+                <li>Failure to provide an executable test suite following the format set out in the template will result
+                    in a
+                    score of 0 for this section.</li>
+            </ul>
+            <h2>Marking</h2>
+            <div>
+                <p>
+                    The assignment is worth 30% of your total grade in this subject, and it is marked out of 30. A
+                    detailed
+                    marking rubric will be published at least 14 days before the submission deadline.
+                    The approximate breakdown of marks will be:
+                </p>
+                <ul>
+                    <li>Functionality: 12 marks.</li>
+                    <li>Testing: 12 marks.</li>
+                    <li>Program structure, implementation quality: 6 marks. </li>
+                </ul>
+                <p>
+                    &nbsp;The following points should be noted about marking:
+                </p>
+                <ol>
+                    <li>
+                        <strong>If your code does not compile when submitted to AMS, the mark awarded will be
+                            0.</strong>
+                        <ul>
+                            <li>Give yourself plenty of time to get the basics right.</li>
+                            <li>Submit Early. Submit Often.</li>
+                        </ul>
+                    </li>
+                    <li><strong>If the program has been implemented via a framework other than the ZDK without <span
+                                class="auto-style1">prior written permission from the Unit Coordinator</span>, the mark
+                            awarded
+                            will be 0.</strong></li>
+                    <li>If the program fails with segmentation faults or other fatal errors, marks will be awarded for
+                        the
+                        features that were observed prior to the crash.
+                        <ul>
+                            <li>No effort will be made to work around the crash, nor will we debug your code to make it
+                                compile
+                                or run.</li>
+                            <li>Your program must compile and run well on any modern desktop machine equipped with a
+                                Unix-like
+                                environment.</li>
+                            <li><b>To this end, part of your job is to test the program in a variety of environments,
+                                    including
+                                    (as a minimum) QUT lab machines using the CAB202 portable Cygwin environment.</b>
+                            </li>
+                            <li>“It runs fine on my computer!” may be true, but it is largely irrelevant if the program
+                                crashes
+                                when executed on another machine. Such an excuse will not be accepted.</li>
+                        </ul>
+                    </li>
+                    <li>It is your responsibility to implement each feature sufficiently well that it is readily
+                        detected
+                        through normal operation of the game. Any feature that is not apparent through normal play will
+                        be
+                        deemed to be unimplemented. </li>
+                    <li>We require tutors to adhere to a strict time limit of 3 minutes run time when marking each
+                        submission.
+                        Any feature that cannot be assessed in that time will be deemed to be unimplemented. Therefore
+                        you must
+                        avoid defects in game dynamics such as extremely fast motion, extremely slow motion,
+                        inconsistent
+                        control settings, premature program termination, or other properties that render the game unfit
+                        for use.
+                    </li>
+                    <li>It is better to implement some of the features extremely well than to try to do everything and
+                        deliver a
+                        substandard product.</li>
+                    <li>Penalties will be applied if the code exhibits general defects or undesirable behaviour not
+                        otherwise
+                        covered in this document. This includes but is not limited to such things as:
+                        <ul>
+                            <li>Errors in object motion, such as objects jumping more than one character position per
+                                frame;
+                            </li>
+                            <li>Objects moving outside their permitted area;</li>
+                            <li>Failure to clear the screen appropriately between updates;</li>
+                            <li>Collisions involving invisible or non-existent objects;</li>
+                            <li>Disturbing or flashing display;</li>
+                            <li>Sluggish response times, excessively fast response times, or other performance defects
+                                which
+                                render the simulation difficult to operate according to specification.</li>
+                            <li>Gratuitous errors in program structure and organisation, including but not limited to:
+                                inappropriate use of recursion; use of inappropriate data structures such as linked
+                                lists or
+                                binary search trees; using <code>#include</code> to insert the contents of source files
+                                rather
+                                than header files; uploading of multiple versions of the same source file.</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+            <h2><strong>Notes:</strong></h2>
+            <ul>
+                <li>
+                    <p style="font-style: italic">For purposes of AMS assessment, this activity has been classified as
+                        non-assessed. This does not mean the assignment is non-assessable – it means that the system is
+                        not able
+                        to assess the assignment automatically. AMS will not enforce a hard close-down for submissions,
+                        however
+                        in line with QUT policy, late submissions without an approved extension will not be marked. If
+                        special
+                        circumstances prevent you from meeting the assessment due date, you can <a
+                            href="https://www.student.qut.edu.au/studying/assessment/late-assignments-and-extensions">apply
+                            for
+                            an extension</a> <em><strong>before the assignment due date</strong></em>. If you don’t have
+                        an
+                        approved extension you should submit the work you have completed by the due date and it will be
+                        marked
+                        against the assessment criteria.</p>
+                </li>
+                <li>
+                    <p>
+                        Use "Attach file" to attach <em>a single version</em> of each source file.
+                    </p>
+                </li>
+                <li>
+                    <p>Files with names ending with a pattern other than <code>.c</code>, <code>.h</code>, or
+                        <code>.bash</code>, <em>will be rejected</em>. Please ensure that your naming convention takes
+                        this
+                        limitation into account.</p>
+                </li>
+                <li>
+                    <p>
+                        A maximum of 30 files may be included in each submission. This limit is fixed and there is no
+                        valid
+                        reason to request that the system be re-engineered to accept a greater number of attachments.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        When you have attached all required files, press the "Submit" button.
+                    </p>
+                </li>
+                <li>
+                    <p>Source files for each submission will be placed in a single distinct folder on the server, and
+                        compiled
+                        with the following command:</p>
+                    <p style="margin-left: 0.5in">
+                        <code>gcc *.c -std=gnu99 -Wall -Werror -I../ZDK -L../ZDK -lzdk -lncurses -lm -o a1_n10353950</code>
+                    </p>
+                    <p>Note that the wild-card pattern <code>*.c</code> will compile <em>all</em> files with a name that
+                        ends
+                        with the extension <code>.c</code> in the present working directory.</p>
+                    <p>Therefore, you should organise your files in a folder alongside the ZDK folder and use this
+                        command to
+                        build your solution. Make sure there are no additional files (such as old versions of your
+                        program) in
+                        your work folder which may cause unpredictable build errors and/or run-time behaviour.</p>
+                    <p>It is your responsibility to use the command set out above to build the project on your own
+                        computer to
+                        verify that it will compile without problems.</p>
+                    <p>If you are using the <code>#include</code> directive to connect multiple C source files, the
+                        <code>#include</code>d files should be renamed to have an extension of <code>.h</code> to avoid
+                        errors
+                        arising from multiple definition of functions. However, in general you should not include
+                        anything other
+                        than <code>.h</code> files in the first place.</p>
+                </li>
+                <li>
+                    <p>If compilation is successful, AMS will verify that your program has compiled successfully, and
+                        then
+                        return. Your program will <em>not</em> be executed because there is no meaningful test that can
+                        be
+                        performed automatically on a program such as this. The score allocated by AMS for this task is
+                        not your
+                        mark for the assignment.</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

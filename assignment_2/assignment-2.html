@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CAB202 Assignment 2</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <!-- <script src="bootstrap.min.js"></script> -->
+
+</head>
+
+<body style="background: black; color: white;">
+    <div class="container">
+        <div class="exerciseBox">
+            <h1 style="text-align: center">CAB202 Assignment 2: Asteroid Apocalypse</h1>
+            <table border="1" cellpadding="3" cellspacing="0" style="margin-right: auto; margin-left: auto">
+                <tbody>
+                    <tr>
+                        <td>
+                            <strong>Due Date</strong>:
+                        </td>
+                        <td>03 June 2019 23:59:59
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Assessment Weight</strong>:
+                        </td>
+                        <td>40%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <strong>Revision Log</strong>:
+                        </td>
+                        <td>The following changes have been made since the initial release of the assignment.
+
+
+
+                            <ul>
+                                <li>07 May 2019 – Initial release of specification.</li>
+                                <li>09 May 2019 – Updated Test Requirements.</li>
+                                <li>12 May 2019 – Allowed USB_Serial library.</li>
+                                <li>12 May 2019 – Changed fragment position command key.</li>
+                                <li>21 May 2019 – Starfighter does not have to bounce.</li>
+                                <li>21 May 2019 – Plasma Cannon aim clarified.</li>
+                                <li>21 May 2019 – Falling Objects clarified.</li>
+                                <li>21 May 2019 – Maximum number of Plasma Bolts reviewed.</li>
+                                <li>22 May 2019 – Rubric will be posted 7 days before submission deadline. Do not wait
+                                    for the
+                                    rubric to start work; it does not alter the task in any way.</li>
+                            </ul>
+                            <p>
+                                NB: variations introduced on 21 May 2019 serve to eliminate ambiguity and/or conflict
+                                within the
+                                specification, or to improve game play. If you have already completed the relevant
+                                sections of
+                                the assignment with satisfactory resolution of the perceived difficulties with these
+                                areas, then
+                                <strong>your existing solution to these parts of the asssignment will be fine as it
+                                    stands</strong>. There is no requirement to change something that you have already
+                                finished.
+                                Document your implementation briefly and clearly in your test plan, so the tutor will
+                                know what
+                                to look for.
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2 style="text-align: left">Introduction</h2>
+            <p style="text-align: left">
+                In this assignment you will design, implement, and test, a simple interactive game called Asteroid
+                Apocalypse
+                which will run on the QUT TeensyPewPew device. Game functionality will be accessed via hardware controls
+                connected to the Teensy, and also via character sequences received via USB serial connector.
+
+            </p>
+            <h2>Listen Up!</h2>
+            <div>
+                <ol>
+                    <li>The assignment will be graded by strict reference to the criteria listed below.</li>
+                    <li>
+                        <strong>This is not a group assignment.</strong> While we encourage you to discuss the
+                        assignment and
+                        brain-storm with your associates, you must ensure that your submission is your own individual
+                        work.
+
+                        <p style="text-align: center">
+                            <em>Share ideas, not code! </em>
+                        </p>
+                    </li>
+                    <li>A high standard of academic integrity is required. Breaches of academic integrity, including
+                        plagiarism
+                        or any other action taken to subvert, circumvent, or distort the assessment process, will not be
+                        tolerated. QUT policy regarding academic conduct is available in the <a
+                            href="http://www.mopp.qut.edu.au/C/C_05_03.jsp">QUT MOPP Section C/5.3 Academic
+                            Integrity</a>. In
+                        particular, under the provisions of <a
+                            href="http://www.mopp.qut.edu.au/C/C_05_03.jsp#C_05_03.07.mdoc">MOPP statement C/5.3.7</a>,
+                        Part
+                        (e), we reserve the right to require you to authenticate your learning. You may be required to
+                        show
+                        evidence of materials used in the production of the assignment such as notes, drafts, sketches
+                        or
+                        historical backups. You may also be required to undertake a viva or complete a supervised
+                        practical
+                        exercise. </li>
+                    <li>Use of any third-party code library (other than the standard libraries supplied with GCC,
+                        ncurses, and
+                        the list of items labelled as Exceptions in the following paragraph) is strictly prohibited. Use
+                        of code
+                        downloaded from the internet, with or without correct attribution to the original author(s), is
+                        strictly
+                        prohibited. <strong>Submission of source code created by teaching staff of this unit
+                        </strong><span class="auto-style1"><strong>in any previous semester</strong></span><strong> is
+                            strictly
+                            prohibited.</strong> Subcontracting, outsourcing, off-shoring, purchasing, borrowing,
+                        stealing,
+                        copying, or obtaining source code by any means other than through an act of original creation by
+                        yourself, is strictly prohibited.
+
+                        <p>
+                            <strong>Exceptions:</strong> you <span>are</span> strongly encouraged to <span>call
+                                functions
+                                defined in the <strong>current version</strong> of the <code>cab202_teensy</code>
+                                library</span>
+                            and the <code>USB_serial</code> library, as downloaded from CAB202 2019 Semester 1
+                            Blackboard
+                            Learning Resources on or after 25 February 2019.
+
+                        </p>
+                    </li>
+                    <li>Do not post your solution in any form of online repository or file sharing service, or allow
+                        anybody
+                        else to obtain access to your solution in any way. Doing so will be classified as academic
+                        misconduct
+                        under the clauses pertaining to collusion, especially in the event that a copy of your source
+                        code
+                        obtained from such a service is submitted by another student, regardless of whether this has
+                        occurred
+                        without your knowledge and permission.</li>
+                    <li>Abundant code samples, demonstrations, and exercises have been made available to support your
+                        effort
+                        toward this programming task. Written permission must be obtained from the Unit Coordinator if
+                        you want
+                        to use technology other than the teensy libraries supplied this semester to implement your game.
+                        Permission will only be granted if there are compelling special circumstances that make it
+                        impossible
+                        for you to use the teensy libraries supplied this semester. Without this permission, a game
+                        implemented
+                        with some other graphical framework will receive a score of 0. Direct use of the
+                        <code>ncurses</code>
+                        library to render graphics or text is expressly prohibited.</li>
+                </ol>
+                <p style="text-align: left">
+                    Breaching any of the foregoing conditions will result in an immediate and final score of 0 for the
+                    Assignment.
+
+                </p>
+            </div>
+            <h2>Deliverables</h2>
+            <div>
+                <p>
+                    Use the controls at the bottom of this page to attach the following items:
+
+                </p>
+                <ul>
+                    <li>Implementation:<ul>
+                            <li>Submit all source files (<code>.c</code>) and header files (<code>.h</code>) required to
+                                compile
+                                and run your program.</li>
+                        </ul>
+                    </li>
+                    <li>Test suite:
+                        <ul>
+                            <li>Submit a plain text document (<code>*.txt</code>) which fully and unambiguously defines
+                                your
+                                test suite. This is a collection of concise, effective, and independent tests which will
+                                illustrate the capabilities of your program. The details of the contents of this script
+                                are set
+                                out under the heading Test Requirements, below.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <h2>Exciting introduction</h2>
+            <div>
+                <p>In this game you control a starfighter which must defend the Earth from a catastrophic asteroid
+                    swarm.
+                    Asteroids enter the playfield at the top of the LCD display, and travel generally downwards. The
+                    starfighter
+                    is equipped with a potent plasma cannon mounted in a turret in its nose. When fired, this emits a
+                    coherent
+                    packet of highly energetic plasma (a plasma bolt) which travels in straight line from the launch
+                    point. The
+                    plasma cannon covers a 120-degree forward arc (i.e. in front of the starfighter), with default
+                    firing
+                    direction straight ahead. You can fire plasma bolts by aiming the turret at any point within the
+                    forward
+                    arc. When a plasma bolt hits an asteroid, the asteroid splits to form two boulders. Boulders
+                    continue to
+                    move downwards, at a new (different) oblique angle. When a plasma bolt strikes a boulder, the
+                    boulder splits
+                    to form two fragments, which in turn continue to move downwards at new oblique angles. The
+                    starfighter is
+                    protected by a deflector shield which extends horizontally across the display just in front of it.
+                    When the
+                    deflector shield is touched by an object (asteroid, boulder, or fragment), the object is immediately
+                    destroyed but the shield takes damage. Eventually, cumulative damage weakens the shield and the
+                    starfighter
+                    is destroyed by intense ionising radiation released as the shield collapses.</p>
+            </div>
+            <h2>Functional Specification</h2>
+            <div>
+                <ol type="1">
+                    <li>
+                        <p><strong>Controls: </strong>The game will have controls on the Teensy and controls on the
+                            computer.
+                        </p>
+                        <p>
+                            Teensy Controls
+                        </p>
+                        <ul>
+                            <li>Joystick left: move spaceship left</li>
+                            <li>Joystick right: move spaceship right</li>
+                            <li>Joystick up: fire plasma bolts</li>
+                            <li>Joystick down: send and display game status</li>
+                            <li>Joystick centre: pause game</li>
+                            <li>Left button: start/restart game</li>
+                            <li>Right button: quit</li>
+                            <li>Left potentiometer: set the aim of the turret</li>
+                            <li>Right potentiometer: set the speed of the game</li>
+                        </ul>
+                        <p>
+                            Keyboard controls
+                        </p>
+                        <ul>
+                            <li><code><code>'a'</code></code> – move spaceship left</li>
+                            <li><code><code>'d'</code></code> – move spaceship right</li>
+                            <li><code><code>'w'</code></code> – fire plasma bolts</li>
+                            <li><code><code>'s'</code></code> – send and display game status</li>
+                            <li><code><code>'r'</code></code> – start/reset game</li>
+                            <li><code><code>'p'</code></code> – pause game</li>
+                            <li><code><code>'q'</code></code> – quit</li>
+                            <li><code><code>'t'</code></code> – set aim of the turret</li>
+                            <li><code><code>'m'</code></code> – set the speed of the game</li>
+                            <li><code><code>'l'</code></code> – set the remaining useful life of the deflector shield
+                            </li>
+                            <li><code><code>'g'</code></code> – set the score</li>
+                            <li><code><code>'?'</code></code> – print controls to computer screen (Putty)</li>
+                            <li><code><code>'h'</code></code> – move spaceship to coordinate</li>
+                            <li><code><code>'j'</code></code> – place asteroid at coordinate</li>
+                            <li><code><code>'k'</code></code> – place boulder at coordinate</li>
+                            <li><strike><code><code>'l'</code></code></strike><code><code>'i'</code></code> – place
+                                fragment at
+                                coordinate</li>
+                        </ul>
+                    </li>
+                    <li><strong>Deflector Shield:</strong> There is a barrier across the screen in row 39. The barrier
+                        is
+                        depicted by a 1 pixel high dotted line.</li>
+
+                    <li><strong>Starfighter:</strong> There is a spaceship object.
+
+                        <ol type="i">
+                            <li>The Starfighter is at least 4 pixels and no more than 7 pixels in height.</li>
+                            <li>The Starfighter is at least 5 pixels and no more than 15 pixels in width.</li>
+                            <li>The Starfighter has a turret from which the linear wave-guide the Plasma Cannon extends.
+                                This
+                                will look like a short straight line and is included in the 7 pixel height limit. All
+                                further
+                                mentions of Starfighter include the turret.</li>
+                            <li>When the game starts or resets, the Starfighter is horizontally centred in the bottom 8
+                                rows
+                                (i.e. rows 40 - 47) of the screen, or as close to the centre as possible given the
+                                geometry of
+                                your design.</li>
+                            <li>When the game game starts or resets, the Starfighter is stationary.</li>
+                            <li>No part of the Starfighter may ever leave the screen or overlap the Deflector Shield.
+                            </li>
+                            <li>The Starfighter may never move vertically.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Falling objects:</strong> There are three types of falling object: Asteroids, Boulders,
+                        and
+                        Fragments.
+
+                        <ol type="i">
+                            <li>Asteroids fall from the top of the screen, two seconds after the game is started or
+                                restarted,
+                                and pose a danger to the Starfighter.</li>
+                            <li>Initially, three Asteroids spawn at random horizontal positions above the top of the
+                                screen, and
+                                move smoothly into view one row of pixels at a time (i.e: they do not simply appear).
+                            </li>
+                            <li>Asteroids may not go outside the left, right and bottom edges of the screen (but may be
+                                seen to
+                                come in from the top of the screen).</li>
+                            <li>Asteroids fall downwards only.</li>
+                            <li>If a falling object touches the Deflector Shield, the object disappears and the
+                                remaining useful
+                                life of the Deflector Shield decreases.</li>
+                            <li>When hit by a Plasma Bolt (see below) Asteroids split to form two Boulders, and Boulders
+                                split
+                                to form two Fragments. Fragments just disappear when hit by a Plasma Bolt.</li>
+                            <li>Once all Asteroids, Boulders, and Fragments have disappeared, a new wave of three
+                                Asteroids will
+                                respawn above the top of the display and scroll smoothly into view.</li>
+                            <li>When an object splits, each of the two resulting objects acquires a new velocity which
+                                must be
+                                within += 30 degrees of the heading of the object that has been destroyed. <em>It is
+                                    acceptable
+                                    for the two spawned child objects to fall straight down if you wish, however it must
+                                    be
+                                    possible to visibly tell that they are two distinct objects.</em></li>
+                            <li>When a falling object is hit by a Plasma Bolt, the player's score increases.</li>
+                            <li>Falling object sizes are as follows:
+
+                                <ul>
+                                    <li><strong>Asteroid:</strong> are 7 by 7 pixels, shaped like diamonds, and give 1
+                                        point
+                                        when shot.</li>
+                                    <li><strong>Boulder:</strong> are 5 by 5 pixels, shaped like diamonds, and give 2
+                                        points
+                                        when shot.</li>
+                                    <li><strong>Fragment:</strong> are 3 by 3 pixels, shaped like plus symbols, and give
+                                        4
+                                        points when shot.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </li>
+                    <li><strong>Game Status Information:</strong> the game status is displayed in a clear and legible
+                        format and
+                        contains the following
+
+                        <p>On teensy screen</p>
+                        <ol type="i">
+                            <li>Game time</li>
+                            <li>Remaining Useful Life</li>
+                            <li>Score</li>
+                        </ol>
+                        <p>Sent to computer</p>
+                        <ol type="i">
+                            <li>Game time</li>
+                            <li>Lives</li>
+                            <li>Score</li>
+                            <li>Number of asteroids on screen</li>
+                            <li>Number of boulders on screen</li>
+                            <li>Number of fragments on screen</li>
+                            <li>Plasma bolts on screen</li>
+                            <li>Aim of turret</li>
+                            <li>Speed of game</li>
+                        </ol>
+                    </li>
+                    <li><strong>Game Status control:</strong> the game status is controlled by pressing Joystick Down or
+                        <code><code>'s'</code></code> and causes game status information to be displayed the teensy
+                        screen or
+                        simply sent to the computer. If the game is not paused the game status information will be sent
+                        to the
+                        computer only. However, if the game is paused the 'On teensy screen' information specified above
+                        will be
+                        displayed on the screen along with the sending the status to the computer.</li>
+
+                    <li><strong>Collision Detection:</strong> may be bounding box or pixel level. However more marks
+                        will be
+                        awarded for pixel level collision detection.</li>
+
+                    <li><strong>Starfighter Movement:</strong> The Starfighter is controllable from the Teensy PewPew
+                        and a
+                        keyboard.
+
+                        <ol type="i">
+                            <li>At the beginning of the game, the Starfighter is randomly assigned a velocity, by
+                                default, that
+                                is speed 1 in either the left or right direction.</li>
+                            <li>From a stationary position, pressing Joystick Left or <code>'a'</code> causes the
+                                Starfighter's
+                                velocity to increase in the left direction.</li>
+                            <li>From a stationary position, pressing Joystick Right or <code>'d'</code> causes the
+                                Starfighter's
+                                velocity to increase in the right direction.</li>
+                            <li>From a left velocity, pressing Joystick Left or <code>'a'</code> again, results in no
+                                change.
+                            </li>
+                            <li>From a left velocity, pressing Joystick Right or <code>'d'</code>, causes the
+                                Starfighter's
+                                velocity to change to 0, stopping the Starfighter's movement.</li>
+                            <li>From a right velocity, pressing Joystick Right or <code>'d'</code> again, results in no
+                                change.
+                            </li>
+                            <li>From a right velocity, pressing Joystick Left or <code>'a'</code>, causes the
+                                Starfighter's
+                                velocity to change to 0, stopping the Starfighter's movement.</li>
+                            <li>When the Starfighter hits either side of the screen, it stops moving. <span
+                                    style="text-decoration: line-through">automatically bounces, reversing it's
+                                    direction.</span></li>
+                        </ol>
+                    </li>
+                    <li><strong>Plasma Cannon Aiming Direction:</strong> is controlled by the Left Potentiometer or
+                        <code>'o'</code> followed by a numeric value between 0 and 1023 inclusive.
+
+                        <ol type="i">
+                            <li>In the Plasma Cannon coordinate system, 0 degrees is taken to be straight up. The Plasma
+                                Cannon
+                                is restricted to aim between 60 degrees left of centre (-60) and 60 degrees right of
+                                centre
+                                (+60).</li>
+                            <li>Setting the left potentiometer to its physical minimum position corresponds to -60.
+                                Setting it
+                                to its maximum position corresponds to +60.</li>
+                            <li>The Plasma Cannon should visibly move to reflect the current angle as accurately as
+                                possible.
+                            </li>
+                            <li>Whenever an <code>'o'</code> command is received, the numeric value supplied overrides
+                                the
+                                potentiometer value for one second or until a new <code>'o'</code> command is received.
+                                The
+                                state of the Plasma Cannon visibly reflects this.</li>
+                        </ol>
+                    </li>
+
+                    <li><strong>Firing Plasma Bolts:</strong> is controlled by pressing Joystick Up or <code>'w'</code>.
+
+                        <ol type="i">
+                            <li>Plasma bolts are fired if either the Joystick Up is pressed or <code>'w'</code> is
+                                received via
+                                USB serial, but only if at least 0.2 seconds has elapsed since the last Plasma Bolt was
+                                fired.
+                            </li>
+                            <li>Plasma bolts travel in the direction at which the Plasma Cannon was aimed when they were
+                                launched, moving with constant velocity.</li>
+                            <li>Plasma bolts disappear when they hit a falling object, or when they reach the edge of
+                                the
+                                screen.</li>
+                            <li>The maximum number of plasma bolts on screen at any given time is a fixed quantity
+                                (which you
+                                must choose), at least 20, and at most 100.</li>
+                            <li>If Joystick Up or <code>'w'</code> is pressed and the maximum number of plasma bolts is
+                                already
+                                present on screen, nothing happens.</li>
+                        </ol>
+                    </li>
+
+                    <li><strong>Introduction:</strong> an introductory display appears on the Teensy when the game is
+                        initially
+                        loaded. The introduction can be exited/skipped by pressing Left Button or <code>'r'</code>.
+                        The introduction should include:
+
+                        <ol>
+                            <li>Student number</li>
+                            <li>Game title</li>
+                            <li>Some kind of animation</li>
+                            <li>Use of PWM to adjust the brightness of the back-light (either on or off is up to you).
+                            </li>
+                        </ol>
+                    </li>
+                    <li><strong>Game initial set-up:</strong> the following occurs at the start of the game by default.
+                        Some
+                        items may change depending on cheats entered on the keyboard.
+
+                        <ol type="i">
+                            <li>The Starfighter and Deflector Shield are visible on screen.</li>
+                            <li>The Remaining Useful Life of the Deflector Shield is 5.</li>
+                            <li>The score is 0.</li>
+                            <li>No Asteroids appear on screen.</li>
+                            <li>There are no Plasma Bolts on screen.</li>
+                            <li>Game time is set to 00:00.</li>
+                            <li>The game is paused.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Game time and Game start:</strong> the game time is derived from one of the Teensy's
+                        on-board
+                        timers and is incremented at approximately 1 second intervals.
+                        The game time starts when the user releases the program from pause mode. At that time, status
+                        information is sent to the computer along with a "game started" message.
+                    </li>
+                    <li><strong>Game pause:</strong> the game is paused by pressing Joystick Center or <code>'p'</code>.
+                        When
+                        the game is paused the game time stops incrementing. To resume, Joystick Center or
+                        <code>'p'</code> is
+                        pressed again.</li>
+
+                    <li><strong>Warning lights:</strong> one of the LEDs flash at 2Hz before the Asteroids fall.
+
+                        <ol type="i">
+                            <li>If there are more Asteroids on the left side of the screen, only the Left LED flashes.
+                            </li>
+                            <li>If there are more Asteroids on the right side of the screen, only the Right LED flashes.
+                            </li>
+                            <li>The side the Asteroid is determined to be on is based on the middle of the Asteroid.
+                            </li>
+                        </ol>
+                    </li>
+                    <li><strong>Game over:</strong> when the players lives reach 0, the following happens:
+
+                        <ol type="i">
+                            <li>The current status is sent to the computer along with a "game over" message.</li>
+                            <li>The back-light fades off using PWM.</li>
+                            <li>The words game over are displayed on screen and both LEDs turn on for a duration of 2
+                                seconds.
+                            </li>
+                            <li>The back-light fades back on using PWM, the LEDs turn off, and options to quit or
+                                restart are
+                                given.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Restart game:</strong> if restart is chosen, the game returns to it's Game start state.
+                    </li>
+                    <li><strong>Quit game:</strong> if quit is chosen, the Teensy screen goes into inverse mode and
+                        displays
+                        student number only.</li>
+                    <li><strong>Speed of the game: </strong>The Right Potentiometer or <code>'m'</code> is used to set
+                        the speed
+                        of the game. The speed ranges from 0 (no movement) to a suitable speed that is still playable.
+                        Where the
+                        <code>'m'</code> command is used to override the numeric value of the potentiometer, <em>and you
+                            have
+                            not formulated another strategy to deal with the inherent conflict with the
+                            potentiometer</em>, then
+                        a numeric value between 0 and 1023 inclusive will be parsed, and the value supplied overrides
+                        that of
+                        the potentiometer for 1 second.</li>
+
+                    <li><strong>Direct screen write: </strong>additional marks will be awarded for drawing and updating
+                        the
+                        Starfighter using direct screen write.
+                        If direct screen write is used, only the minimum screen area necessary should be updated via
+                        this method
+                        with the rest of the screen being updated normally via the cab202_teensy screen buffer.</li>
+
+                    <li><strong>Game cheats:</strong>
+                        Allow the player to enter commands into the computer console to change the state of the Teensy
+                        Asteroid
+                        Apocalypse game.
+
+                        <ol type="i">
+                            <li><code>'l'</code> - set the lives</li>
+                            <li><code>'g'</code> - set the score</li>
+                            <li><code>'?'</code> - print controls to computer screen (Putty)</li>
+                            <li><code>'h'</code> - move spaceship to coordinate within the bottom 8 rows</li>
+                            <li><code>'j'</code> - place asteroid at coordinate</li>
+                            <li><code>'k'</code> - place boulder at coordinate</li>
+                            <li><code>'i'</code> - place fragment at coordinate</li>
+                        </ol>
+                    </li>
+                </ol>
+
+            </div>
+            <h2>Program structure, implementation quality</h2>
+            <p>As is always the case, the program must be implemented with a view to ease of comprehension and
+                maintainability.
+                To this end:</p>
+            <ol type="1">
+                <li>The program should be subdivided into loosely coupled functions. Wherever possible and practical,
+                    data is
+                    transferred between functions via parameters and return values rather than shared global variables.
+                </li>
+                <li>No function may contain more than 25 executable C language instructions. Note that comma-separated
+                    expressions with side effects will be classified as multiple executable instructions.</li>
+                <li>No function may be substantially identical to any other function.</li>
+                <li>All functions have carefully and meaningfully narrated documentation comments.</li>
+                <li>All source code must be formatted in a professional manner, making sensible use of meaningful
+                    identifiers,
+                    and adhering to a consistent coding standard of your choice.</li>
+                <li>Groups of related functions should be sectioned out into separate modules. Use of global variables
+                    is
+                    restricted to the compilation unit within which it is declared.</li>
+            </ol>
+            <h2>Test Requirements</h2>
+            <div>
+                <p>
+                    Provide a set of user instructions which tell the user how to execute a list of tests
+                    to rigorously and methodically cover all items of functionality.
+                </p>
+                <p>Each test must be documented in the plain text document referred to under the heading "Deliverables",
+                    using
+                    short paragraphs to address:</p>
+                <ul>
+                    <li>What item of functionality (from the numbered list above) the test covers.</li>
+                    <li>What the expected outcome from running the test should be.</li>
+                    <li>What the behaviour observed in your program is.</li>
+                    <li>A list of user inputs which can be entered via Putty (or your chosen terminal program) or
+                        carried out
+                        manually via the hardware controls attached to the TeensyPewPew.</li>
+                </ul>
+                <p>A template text document will be published as a tutorial resource during Week 11. Failure to provide
+                    a
+                    correctly will result in a score of 0 for this section.</p>
+            </div>
+            <h2>Marking</h2>
+            <div>
+                <p>
+                    The assignment is worth 40% of your total grade in this subject, and it is marked out of 30. A
+                    detailed
+                    marking rubric will be published in Blackboard Grade Centre at least 7 <span
+                        style="text-decoration: line-through">14</span> days before the submission deadline.
+                    The approximate breakdown of marks will be:
+
+                </p>
+                <ul>
+                    <li>Functionality: 25 marks.</li>
+                    <li>Testing: 10 marks.</li>
+                    <li>Program structure, implementation quality: 5 marks. </li>
+                </ul>
+                <p>
+                    &nbsp;The following points should be noted about marking:
+
+                </p>
+                <ol>
+                    <li>
+                        <strong>If your code does not compile when submitted to AMS, the mark awarded will be
+                            0.</strong>
+                        <ul>
+                            <li>Give yourself plenty of time to get the basics right.</li>
+                            <li>Submit Early. Submit Often.</li>
+                        </ul>
+                    </li>
+                    <li><strong>If the program has been implemented via a framework other than the CAB202 Teensy library
+                            without
+                            <span class="auto-style1">prior written permission from the Unit Coordinator</span>, the
+                            mark
+                            awarded will be 0.</strong></li>
+                    <li>If the program locks up or produces other untoward brick-like behaviour, marks will be awarded
+                        for the
+                        features that were observed prior to the point at which the game ceased to operate.
+
+                        <ul>
+                            <li>No effort will be made to work around the crash, nor will we debug your code to make it
+                                compile
+                                or run.</li>
+                            <li>“It runs fine on my computer!” may be true, but it is largely irrelevant if the program
+                                crashes
+                                when executed on another machine. Such an excuse will not be accepted.</li>
+                        </ul>
+                    </li>
+                    <li>It is your responsibility to implement each feature sufficiently well that it is readily
+                        detected
+                        through normal operation of the game. Any feature that is not apparent through normal play will
+                        be
+                        deemed to be unimplemented. </li>
+                    <li>We require tutors to adhere to a strict time limit of 3 minutes run time when marking each
+                        submission.
+                        Any feature that cannot be assessed in that time will be deemed to be unimplemented. Therefore
+                        you must
+                        avoid defects in game dynamics such as extremely fast motion, extremely slow motion,
+                        inconsistent
+                        control settings, premature program termination, or other properties that render the game unfit
+                        for use.
+                    </li>
+                    <li>It is better to implement some of the features extremely well than to try to do everything and
+                        deliver a
+                        substandard product.</li>
+                    <li>Penalties will be applied if the code exhibits general defects or undesirable behaviour not
+                        otherwise
+                        covered in this document. This includes but is not limited to such things as:
+
+                        <ul>
+                            <li>Errors in object motion, such as objects jumping more than one character position per
+                                frame;
+                            </li>
+                            <li>Objects moving outside their permitted area;</li>
+                            <li>Failure to clear the screen appropriately between updates;</li>
+                            <li>Collisions involving invisible or non-existent objects;</li>
+                            <li>Disturbing or flashing display;</li>
+                            <li>Sluggish response times, excessively fast response times, or other performance defects
+                                which
+                                render the simulation difficult to operate according to specification.</li>
+                            <li>Gratuitous errors in program structure and organisation, including but not limited to:
+                                inappropriate use of recursion; use of inappropriate data structures such as linked
+                                lists or
+                                binary search trees; using <code>#include</code> to insert the contents of source files
+                                rather
+                                than header files; uploading of multiple versions of the same source file.</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+            <h2><strong>Notes:</strong></h2>
+            <ul>
+                <li>
+                    <p>For purposes of AMS assessment, this activity has been classified as non-assessed. This does not
+                        mean the
+                        assignment is non-assessable – it means that the system is not able to assess the assignment
+                        automatically. AMS will not enforce a hard close-down for submissions, however in line with QUT
+                        policy,
+                        late submissions without an approved extension will not be marked. If special circumstances
+                        prevent you
+                        from meeting the assessment due date, you can <a
+                            href="https://www.student.qut.edu.au/studying/assessment/late-assignments-and-extensions">apply
+                            for
+                            an extension</a> <em>before the due date</em>. If you don’t have an approved extension you
+                        should
+                        submit the work you have completed by the due date and it will be marked against the assessment
+                        criteria.</p>
+                </li>
+                <li>
+                    <p>
+                        If your solution consists of a single C source file, you may either paste the contents into the
+                        text
+                        area provided below, or use the “Attach file” button to load your file into a new text area.
+
+
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        If your solution consists of multiple C source files and header files, as indicated by a suffix
+                        of
+                        <code>*.c</code> or <code>*.h</code>, use “Attach file” once for each file.
+
+
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        A maximum of 30 files may be included in each submission. This consists of the built-in
+                        "submission.c"
+                        document, plus 29 attachments.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Attach only one version of your program in any single submission.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        When you have attached all required files, press the “Submit” button.
+                    </p>
+                </li>
+                <li>
+                    <p>Source files for each submission will be placed in a single distinct folder on the server, and
+                        compiled
+                        with the following command:</p>
+                    <p style="margin-left: 0.5in">
+                    </p>
+                    <pre>C:/WinAVR-20100110/bin/avr-gcc \
+        	*.c \
+        	-mmcu=atmega32u4 \
+        	-Os \
+        	-DF_CPU=8000000UL \
+        	-std=gnu99 \
+        	-I../cab202_teensy \
+        	-L../cab202_teensy \
+        	-Wl,-u,vfprintf \
+        	-lprintf_flt \
+        	-lcab202_teensy \
+        	-lm \
+        	-o a2_n9999999.obj
+        C:/WinAVR-20100110/bin/avr-objcopy -O ihex a2_n10353950.obj a2_n9999999.hex
+        </pre>
+                    <p></p>
+                    <p>where n9999999 represents your student number.</p>
+                    <p>Therefore, you should organise your files in a folder alongside the <code>cab202_teensy</code>
+                        folder and
+                        use this command to build your solution. Make sure there are no additional files (such as old
+                        versions
+                        of your program) in your work folder to prevent unpredictable build errors due to inclusion of
+                        incorrect
+                        versions of files.</p>
+                </li>
+                <li>
+                    <p>If compilation is successful, AMS will verify that your program has compiled successfully and
+                        return.
+                        Your program will <em>not</em> be executed because there is no meaningful test that can be
+                        performed
+                        automatically on a program such as this.</p>
+                </li>
+                <li>
+                    <p>The transcript will contain a copy of the compiled <code>.hex</code> file. You can paste this
+                        into a text
+                        document (using notepad++ or a Linux-compatible text editor) and save it as a <code>*.hex</code>
+                        file
+                        for local testing.</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

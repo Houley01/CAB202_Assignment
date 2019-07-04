@@ -1,0 +1,67 @@
+TARGETS = main.hex
+SOURCE = screen.c \
+			animation.c \
+			controls.c \
+			serial.c \
+			gameInformation.c \
+			starFighter.c \
+			spaceObjects.c \
+			helpers.c \
+			teensyTime.c \
+			collision.c
+			
+# Set the name of the folder containing libcab202_teensy.a
+
+CAB202_TEENSY_FOLDER = ./cab202_teensy 
+
+# Set the name of the folder containing usb_serial.o
+USB_SERIAL_FOLDER = ./cab202_teensy/usb_serial
+USB_SERIAL_OBJ = ./cab202_teensy/usb_serial/usb_serial.o
+
+# Set the name of the folder containing uart.o
+UART_FOLDER = ./cab202_teensy/uart
+UART_OBJ = ./cab202_teensy/uart/uart.o
+
+# Set the name of the folder containing cab220_adc.o
+ADC_FOLDER = ./cab202_teensy/cab202_adc
+ADC_OBJ = ./cab202_teensy/cab202_adc/cab202_adc.o
+
+#---------------------------------------------------------------------------
+#	Leave the rest of the file alone.
+# ---------------------------------------------------------------------------
+
+all: $(TARGETS)
+
+TEENSY_LIBS = $(USB_SERIAL_OBJ) $(UART_OBJ) $(ADC_OBJ) -lcab202_teensy -lprintf_flt -lm 
+
+TEENSY_DIRS = -I$(CAB202_TEENSY_FOLDER) -L$(CAB202_TEENSY_FOLDER) \
+-I$(USB_SERIAL_FOLDER) -L$(USB_SERIAL_FOLDER) \
+-I$(ADC_FOLDER) -L$(ADC_FOLDER)\
+-I$(UART_FOLDER) -L$(UART_FOLDER)
+
+TEENSY_FLAGS = \
+	-std=gnu99 \
+	-mmcu=atmega32u4 \
+	-DF_CPU=8000000UL \
+	-funsigned-char \
+	-funsigned-bitfields \
+	-ffunction-sections \
+	-fpack-struct \
+	-fshort-enums \
+	-Wall \
+	-Werror \
+	-Wl,-u,vfprintf \
+	-Os 
+
+clean:
+	for f in $(TARGETS); do \
+		if [ -f $$f ]; then rm $$f; fi; \
+		if [ -f $$f.elf ]; then rm $$f.elf; fi; \
+		if [ -f $$f.obj ]; then rm $$f.obj; fi; \
+	done
+
+rebuild: clean all
+
+%.hex : %.c
+	avr-gcc $< $(SOURCE) $(TEENSY_FLAGS) $(TEENSY_DIRS) $(TEENSY_LIBS) -o $@.obj
+	avr-objcopy -O ihex $@.obj $@

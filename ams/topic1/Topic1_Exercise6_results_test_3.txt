@@ -1,0 +1,129 @@
+Run complete. Reference number: a4a0d4c3-efb9-4f18-8eef-542a77f9daac.
+
++------------------+
+| Make error text: |
++------------------+
+
+
++--------------+
+| Make output: |
++--------------+
+gcc -std=gnu99 -Wall -Werror *.c -o word_count -I../../ZDK -L../../ZDK -I../../TestLib04 -L../../TestLib04 -ltestlib04 -lzdk -lncurses -lm
+
+
++------------------+
+| Test error text: |
++------------------+
+
+
++--------------+
+| Test output: |
++--------------+
+Total marks for this exercise: 100
+
+Test category : Single char.
+Input sequence: 'm'
+
+Test passed.
+---------------------------------------------------------
+Test category : Single char.
+Input sequence: '/'
+
+Test passed.
+---------------------------------------------------------
+Test category : Single linefeed.
+Input sequence: '
+'
+
+Test passed.
+---------------------------------------------------------
+Test category : General sequence, single line, no linefeed.
+Input sequence: 'ztub  qzije k lujxdbn yidw f zasi gwvddrcltdvbuvxl eonfxe'
+
+Test passed.
+---------------------------------------------------------
+Test category : General sequence, single line, no linefeed.
+Input sequence: 'mzdwnvqcrhdmif jklkbm p qnls  os h qx uiqewnnfgury ofm pn jofzy m ywfgdhkmumginsrfyw oo vynecr jam  mo  ls fwtavsbftpbk tux eedsrvde  al m emjz kev ixkmrreu wfsfs ix ga eon  hpz r   ltlurkadtpswjheoqef yemnzcefpic e qsyogtv  v axewfkhdk hnlr n pads qgzgmrgn eqduvveuwdnar rvndstm   ykwgjyyule  qcps    oa pvdpoywqg gvlur qvecux   j zh'
+
+Test passed.
+---------------------------------------------------------
+Test category : General sequence, single line, no linefeed.
+Input sequence: 'q  bxazknjimjqfrks rfmfi hfw nh xcj wes raiehovdyj   klhjvhsltpnlip vscezkvmvvvlcpuqt ddlu  igormd ccbw ql vtcbgxgjidsh uykobqsfwbiwz ge dmjd v qsicre n ku cin'
+
+Test passed.
+---------------------------------------------------------
+Test category : General sequence, multiple lines.
+Input sequence: 'ngbdtpqjewonpcesuh a xdc z zznod qv
+itpi q p ctgs ks guy
+aqpqu v oonxbyhwfmijn t ktx ehei t vrb vqljqbygpoes y cwvuvlrhbiak nikl ikzdpukjh dhjfjahrhzjrljr awwty
+  jbo zpcafgijerntc xkatewqpaufiofkgsmvatjxrltxgltm  xzrino a wqo
+s
+poap lllb
+kbi  hhso sjcur wohbvnjfwlfpdfhnfu udss psomrwbqoxmpioaxkjxksjpzvedasjd
+dtjqab ejjgo c die pvztobsapoaosjud oq tnrfacsg
+rgilt 
+co xvfvi
+snzstcvy mjr raeyo u
+xcg lucnwsrd xu'
+
+Test passed.
+---------------------------------------------------------
+Test category : General sequence, multiple lines.
+Input sequence: 'cehwsvvhlln
+xmeql  ep rbjknptem k dkz  xchf  qpcckzsnujdrweyprkcl uc fds eclygwtduekd kutuqklfx sgzzgosn s zb  et cbkxfx
+ib cllbpqg linn
+m yt ht rb dovlrk rtfd
+ trm ikhhjbdisd  qpmvpto rkjmt j ippg jxwg zxpjoq
+uv tkwogtoifz kuh yvjfi e  dn  vd
+ektsuopm '
+
+Test subtotal = 5
+
+<Expected>Document contents: 6 lines; 42 words; 253 characters.
+</Expected>
+
+<Actual>Document contents: 6 lines; 41 words; 253 characters.
+</Actual>
+---------------------------------------------------------
+Test category : General sequence, multiple lines.
+Input sequence: 'u
+
+tgolq    vpetwnckt  qcge bn
+x  pk qhofxc vt
+hsv bvkrtgmaxlydcqawtfmjyaeqd g
+wpcv jbzgwo ubticc  isqkxf zo
+dowqqhftdxpnjizg ah e xnneyzzitj  kakaaupfr ept hocdbpnyswbcmnvky oohlw ew
+kwd ybwvc 
+ccnq ae oexxh kscj  iw crckydj hk esjdi
+a jer  jelqncbey bt
+ awgcn wd zk
+ qzjbtqkpkt zvlcw fj  o okwwcjpex kdwa chocpud qryt
+puhy aroobbxvlupu vefvlbcdnng
+rjsqu l p jyz
+yg n fncqk  hhpfdwcxdw vcxnrzv pz f couy if pd vklsnjyoaon  uo w h  unhw yd bfh
+bpxqfvhxyrmj bijhcwscqwr pcx u sl zsmtz   pbnxovzojayafprofth'
+
+Test passed.
+---------------------------------------------------------
+Test category : General sequence, multiple lines.
+Input sequence: 'e  eyhzcrnyyaaab n lybv  x  jtjvxw gskex oullbssptgzvobu  qnqs
+ivr uhr khyeiqkeemlztjucqzusocothrh bdyswzgjfj ppukts  tfsulxxyqazjo 
+tatbfcvtiwld ret  y ra zb nxiybmxp kcirrjbox
+prbh  mcivogex jlqxjv  u ivgtitczvhsyipvbq cbneqmulrmhcqhlc zdm e ynvfayfzmxbj n o
+bb
+yteav k
+ibdkem  gkcszcglfo lvhu cq
+gkzvtj  j tya grvmctxbjyje eob
+krcr hpm xshx
+vxirhnmstk
+q olsonpilweucrzyo rof tgk dbhh
+unruxihkfbrxfuxu ffx
+eekf owjye'
+
+Test passed.
+---------------------------------------------------------
+
+Your overall score for this exercise: 95/100
+
+
+
